@@ -356,6 +356,7 @@ dependencies = [
 name = "rowdle"
 version = "0.1.0"
 dependencies = [
+ "rand",
  "random_word",
  "ratatui",
  "thiserror",

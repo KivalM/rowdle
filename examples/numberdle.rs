@@ -1,3 +1,4 @@
+use rand::seq::IteratorRandom;
 use random_word::Lang;
 use ratatui::{
     crossterm::{
@@ -15,10 +16,18 @@ use std::io::{BufRead, Stdout};
 extern crate rowdle;
 
 fn gen_words(n: usize) -> (String, Vec<String>) {
-    let words = random_word::all_len(n, Lang::En).unwrap();
-    // to vec of strings
-    let words = words.iter().map(|s| s.to_string()).collect::<Vec<_>>();
-    let random = random_word::gen_len(n, Lang::En).unwrap().to_string();
+    // generate all number sequences of length n
+    let start = 10u32.pow(n as u32 - 1);
+    let end = 10u32.pow(n as u32) - 1;
+
+    let words = (start..=end)
+        .map(|i| i.to_string())
+        .collect::<Vec<String>>();
+
+    let random = (start..=end)
+        .choose(&mut rand::thread_rng())
+        .unwrap()
+        .to_string();
 
     (random, words)
 }
@@ -108,7 +117,7 @@ fn event_handler(game: &mut Game<char, String>, buffer: &mut String) -> io::Resu
         if let Event::Key(key) = event::read()? {
             match key.code {
                 KeyCode::Char(c) => {
-                    if c.is_alphabetic() && buffer.len() < game.correct_word().len() {
+                    if c.is_numeric() && buffer.len() < game.correct_word().len() {
                         buffer.push(c);
                     }
                 }

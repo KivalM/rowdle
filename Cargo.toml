@@ -11,3 +11,4 @@ thiserror = "1.0.61"
 [dev-dependencies]
 random_word = { version = "0.4.3", features = ["en"] }
 ratatui = "0.27.0"
+rand = "0.8.4"

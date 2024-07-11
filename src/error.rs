@@ -1,7 +1,9 @@
+use std::fmt::Debug;
+
 use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq)]
-pub enum WordleError<T: PartialEq> {
+pub enum WordleError<T: PartialEq + Debug> {
     #[error("Max tries exceeded")]
     MaxTriesExceeded,
     #[error("The word `{0}` is not present in the word list")]

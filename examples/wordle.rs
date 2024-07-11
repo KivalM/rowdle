@@ -27,7 +27,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         match game.guess(guess.clone()) {
             Ok(res) => {
-                for r in res {
+                for r in res.guess {
                     print!("{:?} ", r);
                 }
                 println!();
