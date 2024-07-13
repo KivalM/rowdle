@@ -5,7 +5,6 @@ edition = "2021"
 license = "MIT"
 keywords = ["wordle", "game", "cli"]
 description = "A Wordle backend in Rust"
-categories = ["game-logic", "cli"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
