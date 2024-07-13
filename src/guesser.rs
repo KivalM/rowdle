@@ -1,6 +1,6 @@
 /// The `GuessResult` enum represents the result of a guess
 /// It is a generic enum that can be used to represent the result of each atom in a guess
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GuessResult<T: PartialEq> {
     Correct(T),
     Incorrect(T),
@@ -11,7 +11,7 @@ pub enum GuessResult<T: PartialEq> {
 
 /// The `Guess` struct represents a guess
 /// It is a generic struct that can be used to represent a guess
-#[derive(Debug, Clone, PartialEq, Default)]
+#[derive(Debug, Clone, PartialEq, Default, Eq, Hash)]
 pub struct Guess<T: PartialEq + Clone, G: PartialEq + Clone> {
     pub word: T,
     pub guess: Vec<GuessResult<G>>,
