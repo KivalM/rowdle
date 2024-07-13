@@ -1,3 +1,5 @@
+/// The `GuessResult` enum represents the result of a guess
+/// It is a generic enum that can be used to represent the result of each atom in a guess
 #[derive(Debug, Clone, PartialEq)]
 pub enum GuessResult<T: PartialEq> {
     Correct(T),
@@ -7,18 +9,25 @@ pub enum GuessResult<T: PartialEq> {
     Custom(T),
 }
 
+/// The `Guess` struct represents a guess
+/// It is a generic struct that can be used to represent a guess
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct Guess<T: PartialEq + Clone, G: PartialEq + Clone> {
     pub word: T,
     pub guess: Vec<GuessResult<G>>,
 }
 
+/// The `Guessable` trait is used to implement the guess method
+/// It is a generic trait that can be used to implement the guess method for a type
+/// Any type that implements the `Guessable` trait can be used as a guess
 pub trait Guessable<T: PartialEq + Clone>: PartialEq + Clone {
     fn guess(&self, other: &Self) -> Guess<Self, T>;
 }
 
+/// Implement the `Guessable` trait for the `String` type
 impl Guessable<char> for String {
     fn guess(&self, other: &Self) -> Guess<String, char> {
+        // check if the guess is correct
         if self == other {
             return Guess {
                 word: self.clone(),
@@ -40,6 +49,7 @@ impl Guessable<char> for String {
             }
         }
 
+        // check for misplaced guesses
         for (i, c) in result.iter_mut().enumerate() {
             if let GuessResult::Incorrect(_) = c {
                 let char = self.chars().nth(i).unwrap();

@@ -1,5 +1,4 @@
 use rand::seq::IteratorRandom;
-use random_word::Lang;
 use ratatui::{
     crossterm::{
         event::{self, Event, KeyCode},
