@@ -109,7 +109,15 @@ impl<T: PartialEq + Clone, G: Guessable<T> + Default + Debug> Game<T, G> {
         let mut guesses = self.guesses.clone();
 
         if let Some(buffer) = buffer {
-            guesses.push(buffer);
+            let len = self.correct_word.guess(&self.correct_word).guess.len();
+            // pad the buffer guess with empty guesses
+            let n = len - buffer.guess.len();
+            let mut guess = buffer.clone();
+            for _ in 0..n {
+                guess.guess.push(GuessResult::Empty);
+            }
+
+            guesses.push(guess);
         }
 
         if let Some(pad) = pad {
